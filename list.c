@@ -1,6 +1,6 @@
 #include "list.h"
 
-struct List* l_init(void* data)
+struct List* InitList(void* data)
 {
 	struct ListNode* node = malloc(sizeof(struct ListNode));
 
@@ -15,12 +15,12 @@ struct List* l_init(void* data)
 	list->firstNode->nextNode = NULL;
 	list->firstNode->prevNode = NULL;
 		
-	list->count++;
+	list->count = 1;
 
 	return list;
 }
 
-struct ListNode* l_addBeforeFirst(struct List* list, void* data)
+struct ListNode* AddBeforeFirstList(struct List* list, void* data)
 {
 	struct ListNode* node = malloc(sizeof(struct ListNode));
 	
@@ -38,7 +38,7 @@ struct ListNode* l_addBeforeFirst(struct List* list, void* data)
 	return node;
 }
 
-struct ListNode* l_addAfterLast(struct List* list, void* data)
+struct ListNode* AddAfterLastList(struct List* list, void* data)
 {
 	struct ListNode* node = malloc(sizeof(struct ListNode));
 
@@ -56,7 +56,7 @@ struct ListNode* l_addAfterLast(struct List* list, void* data)
 	return node;
 }
 
-void l_delete(struct List* list)
+void DeleteList(struct List* list)
 {
 	struct ListNode* current = list->firstNode;
 	struct ListNode* next = NULL;
@@ -77,10 +77,10 @@ void l_delete(struct List* list)
 	}
 	
 	free(list);
-	list = (struct List*)NULL;
+	list = NULL;
 }
 
-struct ListNode* l_remove(struct List* list, struct ListNode* node)
+struct ListNode* RemoveList(struct List* list, struct ListNode* node)
 {
 	struct ListNode* current = list->firstNode;
 
@@ -121,3 +121,28 @@ struct ListNode* l_remove(struct List* list, struct ListNode* node)
 
 	return NULL;
 }
+
+
+struct ListNode* RemoveAndReturnNextList(struct List* list, struct ListNode* node)
+{
+	struct ListNode* removedNode = RemoveList(list, node);
+
+	if (removedNode != NULL)
+	{
+		removedNode = removedNode->nextNode;
+	}
+
+	return removedNode;
+}
+
+struct ListNode* RemoveAndReturnPrevList(struct List* list, struct ListNode* node)
+{
+	struct ListNode* removedNode = RemoveList(list, node);
+
+	if (removedNode != NULL)
+	{
+		removedNode = removedNode->prevNode;
+	}
+
+	return removedNode;
+}	

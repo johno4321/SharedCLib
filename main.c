@@ -2,43 +2,35 @@
 
 int main(int argc, char* argv[])
 {
-	int i1 = 1;
-	int i2 = 2;
-	int i3 = 3;
-	int i4 = 4;
-	int i5 = 5;
-	int i6 = 6;
-	int i7 = 7;
+	int* val = (int *)1;
+	struct List* list = InitList(val);
 
-	struct List* list;
-
-	list = l_init(&i1);
-
-	l_addAfterLast(list, &i2);
-	l_addAfterLast(list, &i3);
-	l_addAfterLast(list, &i4);
-	l_addAfterLast(list, &i5);
-	l_addAfterLast(list, &i6);
-	l_addAfterLast(list, &i7);
-	
-	l_remove(list, list->firstNode);
-	l_remove(list, list->lastNode);
+	for (int i = 0; i < 10; i++)
+	{
+		*val = i;
+		AddAfterLastList(list, val);
+	}
 		
 	struct ListNode* current = list->firstNode;
+	int currentNodeValue = *(int *)current->data;
 
-	while (1)
+	while (current)
 	{
-		int val = *(int *)current->data;
-
-		printf("%d\n", val);
+		currentNodeValue = *(int *)current->data;
 		
-		current = current->nextNode;
-
-		if (current == NULL)
-			break;
+		printf("Data: %d Count: %d \n", currentNodeValue, list->count);
+		
+		current = RemoveAndReturnNextList(list, list->firstNode);
 	}
 
-	l_delete(list);
+	if (current != NULL)
+		currentNodeValue = *(int *)current->data;
+	else
+		currentNodeValue = 0;
+
+	printf("Data: %d Count: %d \n", currentNodeValue, list->count);
+
+	DeleteList(list);
 
 	if (list != NULL)
 	{
