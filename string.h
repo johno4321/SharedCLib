@@ -8,21 +8,7 @@ struct String
 	int length;
 };
 
-struct String* InitString(int initalLength)
-{
-	struct String* string = malloc(sizeof(struct String));
-
-	string->buffer = malloc(sizeof(char)* initalLength);
-	string->length = initalLength;
-		
-	return string;
-}
-
-void DeleteString(struct String* string)
-{
-	free(string->buffer);
-	string->buffer = NULL;
-
-	free(string);
-	string = NULL;
-}
+extern struct String* String_Init(char* value);
+extern int String_Length(char* value);
+extern void String_Delete(struct String* string);
+extern int String_Compare(struct String* string1, struct String* string2);

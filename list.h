@@ -19,10 +19,10 @@ struct List
 	int count;
 };
 
-extern struct List* InitList(void* data);
-extern struct ListNode* AddBeforeFirstList(struct List* list, void* data);
-extern struct ListNode* AddAfterLastList(struct List* list, void* data);
-extern void DeleteList(struct List* list);
-extern struct ListNode* RemoveList(struct List* list, struct ListNode* node);
-extern struct ListNode* RemoveAndReturnNextList(struct List* list, struct ListNode* node);
-extern struct ListNode* RemoveAndReturnPrevList(struct List* list, struct ListNode* node);
+extern struct List* List_Init(void* data);
+extern struct ListNode* List_AddBeforeFirst(struct List* list, void* data);
+extern struct ListNode* List_AddAfterLast(struct List* list, void* data);
+extern void List_Delete(struct List* list);
+extern struct ListNode* List_Remove(struct List* list, struct ListNode* node);
+extern struct ListNode* List_RemoveAndReturnNext(struct List* list, struct ListNode* node);
+extern struct ListNode* List_RemoveAndReturnPrev(struct List* list, struct ListNode* node);

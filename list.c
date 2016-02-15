@@ -1,6 +1,6 @@
 #include "list.h"
 
-struct List* InitList(void* data)
+struct List* List_Init(void* data)
 {
 	struct ListNode* node = malloc(sizeof(struct ListNode));
 
@@ -20,7 +20,7 @@ struct List* InitList(void* data)
 	return list;
 }
 
-struct ListNode* AddBeforeFirstList(struct List* list, void* data)
+struct ListNode* List_AddBeforeFirst(struct List* list, void* data)
 {
 	struct ListNode* node = malloc(sizeof(struct ListNode));
 	
@@ -38,7 +38,7 @@ struct ListNode* AddBeforeFirstList(struct List* list, void* data)
 	return node;
 }
 
-struct ListNode* AddAfterLastList(struct List* list, void* data)
+struct ListNode* List_AddAfterLast(struct List* list, void* data)
 {
 	struct ListNode* node = malloc(sizeof(struct ListNode));
 
@@ -56,7 +56,7 @@ struct ListNode* AddAfterLastList(struct List* list, void* data)
 	return node;
 }
 
-void DeleteList(struct List* list)
+void List_Delete(struct List* list)
 {
 	struct ListNode* current = list->firstNode;
 	struct ListNode* next = NULL;
@@ -80,7 +80,7 @@ void DeleteList(struct List* list)
 	list = NULL;
 }
 
-struct ListNode* RemoveList(struct List* list, struct ListNode* node)
+struct ListNode* List_Remove(struct List* list, struct ListNode* node)
 {
 	struct ListNode* current = list->firstNode;
 
@@ -123,9 +123,9 @@ struct ListNode* RemoveList(struct List* list, struct ListNode* node)
 }
 
 
-struct ListNode* RemoveAndReturnNextList(struct List* list, struct ListNode* node)
+struct ListNode* List_RemoveAndReturnNext(struct List* list, struct ListNode* node)
 {
-	struct ListNode* removedNode = RemoveList(list, node);
+	struct ListNode* removedNode = List_Remove(list, node);
 
 	if (removedNode != NULL)
 	{
@@ -135,9 +135,9 @@ struct ListNode* RemoveAndReturnNextList(struct List* list, struct ListNode* nod
 	return removedNode;
 }
 
-struct ListNode* RemoveAndReturnPrevList(struct List* list, struct ListNode* node)
+struct ListNode* List_RemoveAndReturnPrev(struct List* list, struct ListNode* node)
 {
-	struct ListNode* removedNode = RemoveList(list, node);
+	struct ListNode* removedNode = List_Remove(list, node);
 
 	if (removedNode != NULL)
 	{

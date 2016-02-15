@@ -68,11 +68,13 @@
     <ClCompile Include="list.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="string.c" />
+    <ClCompile Include="tests.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="string.h" />
+    <ClInclude Include="tests.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
