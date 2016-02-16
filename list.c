@@ -2,9 +2,11 @@
 
 List* List_Init(void* data)
 {
-	ListNode* node = malloc(sizeof(ListNode));
+	ListNode* node;
+	List* list;
 
-	List* list = malloc(sizeof(List));
+	node = malloc(sizeof(ListNode));
+	list = malloc(sizeof(List));
 
 	list->current = node;
 
@@ -22,7 +24,9 @@ List* List_Init(void* data)
 
 ListNode* List_AddBeforeFirst(List* list, void* data)
 {
-	ListNode *node = malloc(sizeof(ListNode));
+	ListNode* node;
+		
+	node = malloc(sizeof(ListNode));
 	
 	node->data = data;
 
@@ -40,7 +44,9 @@ ListNode* List_AddBeforeFirst(List* list, void* data)
 
 ListNode* List_AddAfterLast(List* list, void* data)
 {
-	ListNode* node = malloc(sizeof(ListNode));
+	ListNode* node;
+	
+	node = malloc(sizeof(ListNode));
 
 	node->data = data;
 
@@ -58,11 +64,14 @@ ListNode* List_AddAfterLast(List* list, void* data)
 
 void List_Delete(List* list)
 {
+	ListNode* current;
+	ListNode* next;
+
 	if (list == NULL)
 		return;
 
-	ListNode* current = list->firstNode;
-	ListNode* next = NULL;
+	current = list->firstNode;
+	next = NULL;
 
 	while (current)
 	{
@@ -109,7 +118,9 @@ ListNode* List_Next(List* list)
 
 ListNode* List_Remove(List* list, ListNode* node)
 {
-	ListNode* current = list->firstNode;
+	ListNode* current;
+	
+	current = list->firstNode;
 
 	while (True)
 	{
@@ -152,7 +163,9 @@ ListNode* List_Remove(List* list, ListNode* node)
 
 ListNode* List_RemoveAndReturnNext(List* list, ListNode* node)
 {
-	ListNode* removedNode = List_Remove(list, node);
+	ListNode* removedNode;
+	
+	removedNode = List_Remove(list, node);
 
 	if (removedNode != NULL)
 	{
@@ -164,7 +177,9 @@ ListNode* List_RemoveAndReturnNext(List* list, ListNode* node)
 
 ListNode* List_RemoveAndReturnPrev(List* list, ListNode* node)
 {
-	ListNode* removedNode = List_Remove(list, node);
+	ListNode* removedNode;
+	
+	removedNode = List_Remove(list, node);
 
 	if (removedNode != NULL)
 	{

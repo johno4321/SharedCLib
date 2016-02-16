@@ -12,11 +12,14 @@ uint32 String_CalculateLength(char* value)
 	return length;
 }
 
- String* String_Init(char* value)
+String* String_Init(char* value)
 {
-	uint32 stringLength = String_CalculateLength(value);
+	uint32 stringLength;
 
-	String* string = malloc(sizeof(String));
+	String* string;
+
+	stringLength = String_CalculateLength(value);
+	string = malloc(sizeof(String));
 
 	size_t stringMemoryLength = sizeof(char) * (stringLength + 1);
 	string->buffer = malloc(stringMemoryLength);

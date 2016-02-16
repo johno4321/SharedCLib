@@ -4,6 +4,8 @@
 
 #define STRING_END '\0'
 
+typedef char bool;
+
 typedef short int16;
 typedef unsigned short uint16;
 
@@ -15,3 +17,7 @@ typedef unsigned long uint64;
 
 #define True 1
 #define False 0
+
+#define null NULL
+
+#define bool 

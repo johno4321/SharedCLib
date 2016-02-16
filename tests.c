@@ -92,3 +92,37 @@ void TestStringSubString()
 
 	String_Delete(string);
 }
+
+void TestStack()
+{
+	Stack* stack = Stack_Init();
+
+	uint32 val1 = 1;
+	Stack_Push(stack, &val1);
+
+	uint32 val2 = 2;
+	Stack_Push(stack, &val2);
+
+	uint32 val3 = 3;
+	Stack_Push(stack, &val3);
+
+	uint32* val;
+	while (!Stack_IsEmpty(stack))
+	{
+		val = (uint32 *)Stack_Pop(stack);
+		printf("%d\n", *val);
+	}
+
+	Stack_Push(stack, &val3);
+	Stack_Push(stack, &val2);
+	Stack_Push(stack, &val1);
+
+	while (!Stack_IsEmpty(stack))
+	{
+		val = (uint32 *)Stack_Pop(stack);
+		printf("%d\n", *val);
+	}
+
+	Stack_Delete(stack);
+
+}
