@@ -1,11 +1,11 @@
 #include "tests.h"
 
-void TestList()
+void TestListAdd()
 {
 	int* val = malloc(sizeof(int));
 	*val = (int)0;
 
-	struct List* list = List_Init(val);
+	List* list = List_Init(val);
 
 	for (int i = 1; i < 10; i++)
 	{	
@@ -14,7 +14,7 @@ void TestList()
 		List_AddAfterLast(list, val);
 	}
 
-	struct ListNode* current = list->firstNode;
+	ListNode* current = list->firstNode;
 	int currentNodeValue = *(int *)current->data;
 
 	while (current)
@@ -41,10 +41,10 @@ void TestList()
 	}
 }
 
-void TestString()
+void TestStringCompare()
 {
-	struct String* string1 = String_Init("string1");
-	struct String* string2 = String_Init("string2");
+	String* string1 = String_Init("string1");
+	String* string2 = String_Init("string2");
 
 	int rt = String_Compare(string1, string2);
 
@@ -62,4 +62,33 @@ void TestString()
 
 	String_Delete(string1);
 	String_Delete(string2);
+}
+
+void TestStringSubString()
+{
+	String* string = String_Init("this is my test string");
+	String* subString =  String_Substring(string, 2, 2);
+
+	String* expectedString = String_Init("is");
+	
+	if (String_Compare(subString, expectedString) == 0)
+		printf("sub string works\n");
+	else
+		printf("sub string does not work\n");
+
+	String_Delete(subString);
+	String_Delete(expectedString);
+
+	subString = String_Substring(string, 20, 4);
+	expectedString = String_Init("ng");
+
+	if (String_Compare(subString, expectedString) == 0)
+		printf("sub string works\n");
+	else
+		printf("sub string does not work\n");
+
+	String_Delete(subString);
+	String_Delete(expectedString);
+
+	String_Delete(string);
 }

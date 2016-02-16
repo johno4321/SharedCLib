@@ -2,9 +2,11 @@
 
 int main(int argc, char* argv[])
 {
-	TestList();
+	TestListAdd();
 
-	TestString();
+	TestStringCompare();
+	
+	TestStringSubString();
 
 	return 0;
 }

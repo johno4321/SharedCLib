@@ -1,15 +1,20 @@
 #include "string.h"
 
-struct String* String_Init(char* value)
+ String* String_Init(char* value)
 {
 	int stringLength = String_Length(value);
 
-	size_t stringMemoryLength = sizeof(char)* (stringLength + 1);
-	struct String* string = malloc(sizeof(struct String));
+	String* string = malloc(sizeof(String));
 
+	size_t stringMemoryLength = sizeof(char) * (stringLength + 1);
 	string->buffer = malloc(stringMemoryLength);
 
-	memcpy(string->buffer, value, stringMemoryLength);
+	for (int i = 0; i < stringLength; i++)
+	{
+		*(string->buffer + i) = *(value + i);
+	}
+
+	*(string->buffer + stringLength) = STRING_END;
 
 	string->length = stringLength;
 
@@ -23,12 +28,12 @@ int String_Length(char* value)
 	do
 	{
 		length++;
-	} while (*(value + length) != (char)NULL);
+	} while (*(value + length) != STRING_END);
 
 	return length;
 }
 
-void String_Delete(struct String* string)
+void String_Delete(String* string)
 {
 	free(string->buffer);
 	string->buffer = NULL;
@@ -37,7 +42,7 @@ void String_Delete(struct String* string)
 	string = NULL;
 }
 
-int String_Compare(struct String* string1, struct String* string2)
+int String_Compare(String* string1, String* string2)
 {
 	if (string1 == NULL)
 		return -1;
@@ -54,7 +59,7 @@ int String_Compare(struct String* string1, struct String* string2)
 	
 	while (*string1Ptr == *string2Ptr)
 	{
-		if (*string1Ptr == (char)NULL)
+		if (*string1Ptr == STRING_END)
 			return 0;
 
 		string1Ptr++;
@@ -62,4 +67,42 @@ int String_Compare(struct String* string1, struct String* string2)
 	}
 
 	return *string1Ptr < *string2Ptr ? -1 : 1;
+}
+
+//Returns a substring from the string passed in
+//TODO this needs to be more defensive
+String* String_Substring(String* string, int startIndex, int count)
+{
+	char* subString = NULL;
+
+	//if startIndex exceeds the length of the input string return NULL
+	if (startIndex > string->length)
+	{
+		return NULL;
+	}
+
+	//work out the length of the string the user wants us to return
+	int subStringLength = count;
+
+	//fix the count parm if required - don't want to overflow the buffer - only return as much as we can
+	if (startIndex + count > string->length)
+	{
+		subStringLength = string->length - startIndex;
+	}
+
+	//create the sub string
+	subString = malloc(sizeof(char) * (subStringLength + 1));
+	
+	for (int index = 0; index < subStringLength; index++)
+	{
+		*(subString + index) = *(string->buffer + startIndex + index);
+	}
+
+	*(subString + subStringLength) = STRING_END;
+
+	String* rtString = String_Init(subString);
+
+	free(subString);
+
+	return rtString;
 }

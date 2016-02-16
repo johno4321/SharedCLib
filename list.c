@@ -1,10 +1,10 @@
 #include "list.h"
 
-struct List* List_Init(void* data)
+List* List_Init(void* data)
 {
-	struct ListNode* node = malloc(sizeof(struct ListNode));
+	ListNode* node = malloc(sizeof(ListNode));
 
-	struct List* list = malloc(sizeof(struct List));
+	List* list = malloc(sizeof(List));
 
 	list->current = node;
 
@@ -20,9 +20,9 @@ struct List* List_Init(void* data)
 	return list;
 }
 
-struct ListNode* List_AddBeforeFirst(struct List* list, void* data)
+ListNode* List_AddBeforeFirst(List* list, void* data)
 {
-	struct ListNode* node = malloc(sizeof(struct ListNode));
+	ListNode *node = malloc(sizeof(ListNode));
 	
 	node->data = data;
 
@@ -38,9 +38,9 @@ struct ListNode* List_AddBeforeFirst(struct List* list, void* data)
 	return node;
 }
 
-struct ListNode* List_AddAfterLast(struct List* list, void* data)
+ListNode* List_AddAfterLast(List* list, void* data)
 {
-	struct ListNode* node = malloc(sizeof(struct ListNode));
+	ListNode* node = malloc(sizeof(ListNode));
 
 	node->data = data;
 
@@ -56,17 +56,20 @@ struct ListNode* List_AddAfterLast(struct List* list, void* data)
 	return node;
 }
 
-void List_Delete(struct List* list)
+void List_Delete(List* list)
 {
-	struct ListNode* current = list->firstNode;
-	struct ListNode* next = NULL;
+	if (list == NULL)
+		return;
+
+	ListNode* current = list->firstNode;
+	ListNode* next = NULL;
 
 	while (current)
 	{
 		next = current->nextNode;
 		
 		free(current);
-		current = (struct ListNode*)NULL;
+		current = (ListNode*)NULL;
 
 		if (next == NULL)
 		{
@@ -80,9 +83,33 @@ void List_Delete(struct List* list)
 	list = NULL;
 }
 
-struct ListNode* List_Remove(struct List* list, struct ListNode* node)
+ListNode* List_First(List* list)
 {
-	struct ListNode* current = list->firstNode;
+	return list->firstNode;
+}
+
+ListNode* List_Last(List* list)
+{
+	return list->lastNode;
+}
+
+ListNode* List_Next(List* list)
+{
+	if (list->current != list->firstNode)
+	{
+		list->current = list->firstNode;
+	}
+	else
+	{
+		list->current = list->current->nextNode;
+	}
+
+	return list->current;
+}
+
+ListNode* List_Remove(List* list, ListNode* node)
+{
+	ListNode* current = list->firstNode;
 
 	while (1)
 	{
@@ -123,9 +150,9 @@ struct ListNode* List_Remove(struct List* list, struct ListNode* node)
 }
 
 
-struct ListNode* List_RemoveAndReturnNext(struct List* list, struct ListNode* node)
+ListNode* List_RemoveAndReturnNext(List* list, ListNode* node)
 {
-	struct ListNode* removedNode = List_Remove(list, node);
+	ListNode* removedNode = List_Remove(list, node);
 
 	if (removedNode != NULL)
 	{
@@ -135,9 +162,9 @@ struct ListNode* List_RemoveAndReturnNext(struct List* list, struct ListNode* no
 	return removedNode;
 }
 
-struct ListNode* List_RemoveAndReturnPrev(struct List* list, struct ListNode* node)
+ListNode* List_RemoveAndReturnPrev(List* list, ListNode* node)
 {
-	struct ListNode* removedNode = List_Remove(list, node);
+	ListNode* removedNode = List_Remove(list, node);
 
 	if (removedNode != NULL)
 	{
@@ -145,4 +172,4 @@ struct ListNode* List_RemoveAndReturnPrev(struct List* list, struct ListNode* no
 	}
 
 	return removedNode;
-}	
+}

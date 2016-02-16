@@ -1,5 +1,5 @@
 #pragma once
 
 #include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+
+#define STRING_END '\0'

@@ -1,9 +1,13 @@
 #pragma once
 
+#include <stdio.h>
+
 #include "common.h"
 #include "list.h"
 #include "string.h"
 
-extern void TestList();
+extern void TestListAdd();
 
-extern void TestString();
+extern void TestStringCompare();
+
+extern void TestStringSubString();
