@@ -1,15 +1,27 @@
 #include "string.h"
 
+uint32 String_CalculateLength(char* value)
+{
+	uint32 length = 0;
+
+	do
+	{
+		length++;
+	} while (*(value + length) != STRING_END);
+
+	return length;
+}
+
  String* String_Init(char* value)
 {
-	int stringLength = String_Length(value);
+	uint32 stringLength = String_CalculateLength(value);
 
 	String* string = malloc(sizeof(String));
 
 	size_t stringMemoryLength = sizeof(char) * (stringLength + 1);
 	string->buffer = malloc(stringMemoryLength);
 
-	for (int i = 0; i < stringLength; i++)
+	for (uint32 i = 0; i < stringLength; i++)
 	{
 		*(string->buffer + i) = *(value + i);
 	}
@@ -21,18 +33,6 @@
 	return string;
 }
 
-int String_Length(char* value)
-{
-	int length = 0;
-
-	do
-	{
-		length++;
-	} while (*(value + length) != STRING_END);
-
-	return length;
-}
-
 void String_Delete(String* string)
 {
 	free(string->buffer);
@@ -42,7 +42,7 @@ void String_Delete(String* string)
 	string = NULL;
 }
 
-int String_Compare(String* string1, String* string2)
+int16 String_Compare(String* string1, String* string2)
 {
 	if (string1 == NULL)
 		return -1;
@@ -71,7 +71,7 @@ int String_Compare(String* string1, String* string2)
 
 //Returns a substring from the string passed in
 //TODO this needs to be more defensive
-String* String_Substring(String* string, int startIndex, int count)
+String* String_Substring(String* string, uint32 startIndex, uint32 count)
 {
 	char* subString = NULL;
 

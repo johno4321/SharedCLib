@@ -111,7 +111,7 @@ ListNode* List_Remove(List* list, ListNode* node)
 {
 	ListNode* current = list->firstNode;
 
-	while (1)
+	while (True)
 	{
 		if (current == node)
 		{
