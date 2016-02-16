@@ -15,9 +15,9 @@ typedef unsigned int uint32;
 typedef long int64;
 typedef unsigned long uint64;
 
-#define True 1
-#define False 0
+#define true 1
+#define false 0
 
 #define null NULL
 
-#define bool 
+#define bool char

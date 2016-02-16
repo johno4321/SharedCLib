@@ -15,7 +15,6 @@ uint32 String_CalculateLength(char* value)
 String* String_Init(char* value)
 {
 	uint32 stringLength;
-
 	String* string;
 
 	stringLength = String_CalculateLength(value);
@@ -85,7 +84,7 @@ String* String_Substring(String* string, uint32 startIndex, uint32 count)
 	}
 
 	//work out the length of the string the user wants us to return
-	int subStringLength = count;
+	uint32 subStringLength = count;
 
 	//fix the count parm if required - don't want to overflow the buffer - only return as much as we can
 	if (startIndex + count > string->length)
@@ -96,7 +95,7 @@ String* String_Substring(String* string, uint32 startIndex, uint32 count)
 	//create the sub string
 	subString = malloc(sizeof(char) * (subStringLength + 1));
 	
-	for (int index = 0; index < subStringLength; index++)
+	for (uint32 index = 0; index < subStringLength; index++)
 	{
 		*(subString + index) = *(string->buffer + startIndex + index);
 	}

@@ -14,8 +14,8 @@ List* List_Init(void* data)
 	list->lastNode = node;
 	
 	list->firstNode->data = data;
-	list->firstNode->nextNode = NULL;
-	list->firstNode->prevNode = NULL;
+	list->firstNode->nextNode = null;
+	list->firstNode->prevNode = null;
 		
 	list->count = 1;
 
@@ -31,7 +31,7 @@ ListNode* List_AddBeforeFirst(List* list, void* data)
 	node->data = data;
 
 	node->nextNode = list->firstNode;
-	node->prevNode = NULL;
+	node->prevNode = null;
 
 	list->current = node;
 
@@ -50,7 +50,7 @@ ListNode* List_AddAfterLast(List* list, void* data)
 
 	node->data = data;
 
-	node->nextNode = NULL;
+	node->nextNode = null;
 	node->prevNode = list->lastNode;
 	
 	list->current = node;
@@ -67,20 +67,20 @@ void List_Delete(List* list)
 	ListNode* current;
 	ListNode* next;
 
-	if (list == NULL)
+	if (list == null)
 		return;
 
 	current = list->firstNode;
-	next = NULL;
+	next = null;
 
 	while (current)
 	{
 		next = current->nextNode;
 		
 		free(current);
-		current = (ListNode*)NULL;
+		current = (ListNode*)null;
 
-		if (next == NULL)
+		if (next == null)
 		{
 			break;
 		}
@@ -89,7 +89,12 @@ void List_Delete(List* list)
 	}
 	
 	free(list);
-	list = NULL;
+	list = null;
+}
+
+uint32 List_Count(List* list)
+{
+	return list->count;
 }
 
 ListNode* List_First(List* list)
@@ -100,6 +105,11 @@ ListNode* List_First(List* list)
 ListNode* List_Last(List* list)
 {
 	return list->lastNode;
+}
+
+ListNode* List_Current(List* list)
+{
+	return list->current;
 }
 
 ListNode* List_Next(List* list)
@@ -122,16 +132,16 @@ ListNode* List_Remove(List* list, ListNode* node)
 	
 	current = list->firstNode;
 
-	while (True)
+	while (true)
 	{
 		if (current == node)
 		{
-			if (node->nextNode != NULL)
+			if (node->nextNode != null)
 			{
 				node->nextNode->prevNode = node->prevNode;
 			}
 
-			if (node->prevNode != NULL)
+			if (node->prevNode != null)
 			{
 				node->prevNode->nextNode = node->nextNode;
 			}
@@ -153,11 +163,11 @@ ListNode* List_Remove(List* list, ListNode* node)
 
 		current = current->nextNode;
 
-		if (current == NULL)
+		if (current == null)
 			break;
 	}
 
-	return NULL;
+	return null;
 }
 
 
@@ -167,7 +177,7 @@ ListNode* List_RemoveAndReturnNext(List* list, ListNode* node)
 	
 	removedNode = List_Remove(list, node);
 
-	if (removedNode != NULL)
+	if (removedNode != null)
 	{
 		removedNode = removedNode->nextNode;
 	}
@@ -181,7 +191,7 @@ ListNode* List_RemoveAndReturnPrev(List* list, ListNode* node)
 	
 	removedNode = List_Remove(list, node);
 
-	if (removedNode != NULL)
+	if (removedNode != null)
 	{
 		removedNode = removedNode->prevNode;
 	}
