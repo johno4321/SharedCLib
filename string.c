@@ -44,6 +44,28 @@ void String_Delete(String* string)
 	string = NULL;
 }
 
+String* String_Append(String* string1, char* string2)
+{
+	uint32 string2Length = String_CalculateLength(string2);
+	char* buffer = malloc(sizeof(char)* (string1->length + string2Length));
+
+	for (uint32 i = 0; i < string1->length; i++)
+	{
+		*(buffer + i) = *(string1->buffer + i);
+	}
+
+	for (uint32 i = 0; i < string1->length; i++)
+	{
+		*(buffer + string1->length + i) = *(string2 + i);
+	}
+
+	*(buffer + string1->length + string2Length) = STRING_END;
+	
+	String_Delete(string1);
+
+	return String_Init(buffer);
+}
+
 int16 String_Compare(String* string1, String* string2)
 {
 	if (string1 == NULL)

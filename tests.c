@@ -93,6 +93,28 @@ void TestStringSubString()
 	String_Delete(string);
 }
 
+void TestStringAppend()
+{
+	String* string1 = String_Init("this is string 1 ");
+	char* string2 = "this is string 2";
+
+	string1 = String_Append(string1, string2);
+	String* expectedString = String_Init("this is string 1 this is string 2");
+
+	if (String_Compare(string1, expectedString) == 0)
+	{
+		printf("Append works\n");
+	}
+	else
+	{
+		printf("Append does not work\n");
+	}
+
+	String_Delete(string1);
+	String_Delete(expectedString);
+
+}
+
 void TestStack()
 {
 	Stack* stack = Stack_Init();

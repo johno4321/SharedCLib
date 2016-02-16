@@ -13,4 +13,6 @@ extern void TestStringCompare();
 
 extern void TestStringSubString();
 
+extern void TestStringAppend();
+
 extern void TestStack();

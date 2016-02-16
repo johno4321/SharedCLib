@@ -8,6 +8,8 @@ int main(int argc, char* argv[])
 
 	TestStringSubString();
 
+	TestStringAppend();
+
 	TestStack();
 
 	return 0;
