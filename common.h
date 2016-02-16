@@ -2,6 +2,9 @@
 
 #include <stdlib.h>
 
+#define True 1
+#define False 0
+
 #define STRING_END '\0'
 
 typedef short int16;
@@ -12,6 +15,3 @@ typedef unsigned int uint32;
 
 typedef long int64;
 typedef unsigned long uint64;
-
-#define True 1
-#define False 0
