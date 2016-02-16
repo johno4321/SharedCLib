@@ -7,6 +7,8 @@
 #include "string.h"
 #include "stack.h"
 
+extern void TestDatatypeSizes();
+
 extern void TestListAdd();
 
 extern void TestStringCompare();

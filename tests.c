@@ -1,5 +1,18 @@
 #include "tests.h"
 
+void TestDatatypeSizes()
+{
+	printf("%d\n", sizeof(uint8));
+	printf("%d\n", sizeof(int8));
+	printf("%d\n", sizeof(uint16));
+	printf("%d\n", sizeof(int16));
+	printf("%d\n", sizeof(uint32));
+	printf("%d\n", sizeof(int32));
+	printf("%d\n", sizeof(uint64));
+	printf("%d\n", sizeof(int64));
+	printf("%d\n", sizeof(void *));
+}
+
 void TestListAdd()
 {
 	int* val = malloc(sizeof(int));
