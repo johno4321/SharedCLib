@@ -12,11 +12,13 @@ uint32 String_CalculateLength(char* value)
 	return length;
 }
 
- String* String_Init(char* value)
+String* String_Init(char* value)
 {
-	uint32 stringLength = String_CalculateLength(value);
+	uint32 stringLength;
+	String* string;
 
-	String* string = malloc(sizeof(String));
+	stringLength = String_CalculateLength(value);
+	string = malloc(sizeof(String));
 
 	size_t stringMemoryLength = sizeof(char) * (stringLength + 1);
 	string->buffer = malloc(stringMemoryLength);
@@ -40,6 +42,28 @@ void String_Delete(String* string)
 
 	free(string);
 	string = NULL;
+}
+
+String* String_Append(String* string1, char* string2)
+{
+	uint32 string2Length = String_CalculateLength(string2);
+	char* buffer = malloc(sizeof(char)* (string1->length + string2Length));
+
+	for (uint32 i = 0; i < string1->length; i++)
+	{
+		*(buffer + i) = *(string1->buffer + i);
+	}
+
+	for (uint32 i = 0; i < string1->length; i++)
+	{
+		*(buffer + string1->length + i) = *(string2 + i);
+	}
+
+	*(buffer + string1->length + string2Length) = STRING_END;
+	
+	String_Delete(string1);
+
+	return String_Init(buffer);
 }
 
 int16 String_Compare(String* string1, String* string2)
@@ -82,7 +106,7 @@ String* String_Substring(String* string, uint32 startIndex, uint32 count)
 	}
 
 	//work out the length of the string the user wants us to return
-	int subStringLength = count;
+	uint32 subStringLength = count;
 
 	//fix the count parm if required - don't want to overflow the buffer - only return as much as we can
 	if (startIndex + count > string->length)
@@ -93,7 +117,7 @@ String* String_Substring(String* string, uint32 startIndex, uint32 count)
 	//create the sub string
 	subString = malloc(sizeof(char) * (subStringLength + 1));
 	
-	for (int index = 0; index < subStringLength; index++)
+	for (uint32 index = 0; index < subStringLength; index++)
 	{
 		*(subString + index) = *(string->buffer + startIndex + index);
 	}

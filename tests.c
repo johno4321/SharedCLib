@@ -1,5 +1,18 @@
 #include "tests.h"
 
+void TestDatatypeSizes()
+{
+	printf("%d\n", sizeof(uint8));
+	printf("%d\n", sizeof(int8));
+	printf("%d\n", sizeof(uint16));
+	printf("%d\n", sizeof(int16));
+	printf("%d\n", sizeof(uint32));
+	printf("%d\n", sizeof(int32));
+	printf("%d\n", sizeof(uint64));
+	printf("%d\n", sizeof(int64));
+	printf("%d\n", sizeof(void *));
+}
+
 void TestListAdd()
 {
 	int* val = malloc(sizeof(int));
@@ -91,4 +104,60 @@ void TestStringSubString()
 	String_Delete(expectedString);
 
 	String_Delete(string);
+}
+
+void TestStringAppend()
+{
+	String* string1 = String_Init("this is string 1 ");
+	char* string2 = "this is string 2";
+
+	string1 = String_Append(string1, string2);
+	String* expectedString = String_Init("this is string 1 this is string 2");
+
+	if (String_Compare(string1, expectedString) == 0)
+	{
+		printf("Append works\n");
+	}
+	else
+	{
+		printf("Append does not work\n");
+	}
+
+	String_Delete(string1);
+	String_Delete(expectedString);
+
+}
+
+void TestStack()
+{
+	Stack* stack = Stack_Init();
+
+	uint32 val1 = 1;
+	Stack_Push(stack, &val1);
+
+	uint32 val2 = 2;
+	Stack_Push(stack, &val2);
+
+	uint32 val3 = 3;
+	Stack_Push(stack, &val3);
+
+	uint32* val;
+	while (!Stack_IsEmpty(stack))
+	{
+		val = (uint32 *)Stack_Pop(stack);
+		printf("%d\n", *val);
+	}
+
+	Stack_Push(stack, &val3);
+	Stack_Push(stack, &val2);
+	Stack_Push(stack, &val1);
+
+	while (!Stack_IsEmpty(stack))
+	{
+		val = (uint32 *)Stack_Pop(stack);
+		printf("%d\n", *val);
+	}
+
+	Stack_Delete(stack);
+
 }
