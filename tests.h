@@ -1,20 +1,23 @@
 #pragma once
+#include "common.h"
 
 #include <stdio.h>
 
-#include "common.h"
 #include "list.h"
 #include "string.h"
 #include "stack.h"
+#include "queue.h"
 
 extern void TestDatatypeSizes();
 
-extern void TestListAdd();
+void TestStringCompare();
+void TestStringSubString();
+void TestStringAppend();
 
-extern void TestStringCompare();
-
-extern void TestStringSubString();
-
-extern void TestStringAppend();
+extern void TestString();
 
 extern void TestStack();
+
+extern void TestQueue();
+
+extern void TestList();

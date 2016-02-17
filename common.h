@@ -2,16 +2,6 @@
 
 #include <stdlib.h>
 
-#define True 1
-#define False 0
-
-#define STRING_END '\0'
-
-#define true (bool)1
-#define false (bool)0
-
-#define null NULL
-
 typedef unsigned char bool;
 
 typedef unsigned char byte;
@@ -26,5 +16,16 @@ typedef int int32;
 typedef unsigned int uint32;
 
 typedef long int64;
-
 typedef unsigned long uint64;
+
+#define True 1
+#define False 0
+
+#define STRING_END '\0'
+
+#define true (bool)1
+#define false (bool)0
+
+#define null NULL
+
+#define printLine(msg) printf("%s\n", msg)

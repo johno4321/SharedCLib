@@ -2,56 +2,25 @@
 
 void TestDatatypeSizes()
 {
-	printf("%d\n", sizeof(uint8));
 	printf("%d\n", sizeof(int8));
-	printf("%d\n", sizeof(uint16));
+	printf("%d\n", sizeof(uint8));
+	
 	printf("%d\n", sizeof(int16));
-	printf("%d\n", sizeof(uint32));
+	printf("%d\n", sizeof(uint16));
+	
 	printf("%d\n", sizeof(int32));
-	printf("%d\n", sizeof(uint64));
+	printf("%d\n", sizeof(uint32));
+	
 	printf("%d\n", sizeof(int64));
+	printf("%d\n", sizeof(uint64));
 	printf("%d\n", sizeof(void *));
 }
 
-void TestListAdd()
+void TestString()
 {
-	int* val = malloc(sizeof(int));
-	*val = (int)0;
-
-	List* list = List_Init(val);
-
-	for (int i = 1; i < 10; i++)
-	{	
-		val = malloc(sizeof(int));
-		*val = i;
-		List_AddAfterLast(list, val);
-	}
-
-	ListNode* current = list->firstNode;
-	int currentNodeValue = *(int *)current->data;
-
-	while (current)
-	{
-		currentNodeValue = *(int *)current->data;
-
-		printf("Data: %d Count: %d \n", currentNodeValue, list->count);
-
-		current = List_RemoveAndReturnNext(list, list->firstNode);
-	}
-
-	if (current != NULL)
-		currentNodeValue = *(int *)current->data;
-	else
-		currentNodeValue = 0;
-
-	printf("Data: %d Count: %d \n", currentNodeValue, list->count);
-
-	List_Delete(list);
-
-	if (list != NULL)
-	{
-		printf("List is not NULL\n");
-	}
+	TestStringCompare();
+	TestStringSubString();
+	TestStringAppend();
 }
 
 void TestStringCompare()
@@ -80,10 +49,10 @@ void TestStringCompare()
 void TestStringSubString()
 {
 	String* string = String_Init("this is my test string");
-	String* subString =  String_Substring(string, 2, 2);
+	String* subString = String_Substring(string, 2, 2);
 
 	String* expectedString = String_Init("is");
-	
+
 	if (String_Compare(subString, expectedString) == 0)
 		printf("sub string works\n");
 	else
@@ -159,5 +128,68 @@ void TestStack()
 	}
 
 	Stack_Delete(stack);
+}
 
+void TestQueue()
+{
+	Queue* queue = Queue_Init();
+
+	uint32 val1 = 1;
+	Queue_Enqueue(queue, &val1);
+
+	uint32 val2 = 2;
+	Queue_Enqueue(queue, &val2);
+
+	uint32 val3 = 3;
+	Queue_Enqueue(queue, &val3);
+
+	uint32* val;
+	while (!Queue_IsEmpty(queue))
+	{
+		val = (uint32 *)Queue_Dequeue(queue);
+		printf("%d\n", *val);
+	}
+
+	Queue_Delete(queue);
+}
+
+void TestList()
+{
+	int* val = malloc(sizeof(int));
+	*val = (int)0;
+
+	List* list = List_Init(val);
+
+	for (int i = 1; i < 10; i++)
+	{
+		val = malloc(sizeof(int));
+		*val = i;
+		List_AddAfterLast(list, val);
+	}
+
+	ListNode* current = list->firstNode;
+	int currentNodeValue = *(int *)current->data;
+
+	while (current)
+	{
+		currentNodeValue = *(int *)current->data;
+
+		printf("Data: %d Count: %d \n", currentNodeValue, list->count);
+
+		current = List_RemoveAndReturnNext(list, list->firstNode);
+	}
+
+	if (current != NULL)
+		currentNodeValue = *(int *)current->data;
+	else
+		currentNodeValue = 0;
+
+	printf("Data: %d Count: %d \n", currentNodeValue, list->count);
+
+	List_Delete(list);
+
+	if (list != NULL)
+	{
+		printf("List is not NULL\n");
+	}
 }

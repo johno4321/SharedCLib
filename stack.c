@@ -13,10 +13,8 @@ void Stack_Delete(Stack* stack)
 {
 	StackNode* current = stack->top;
 
-	while (Stack_Pop(stack))
-	{
-	}
-
+	while (Stack_Pop(stack));
+	
 	free(stack);
 	stack = null;
 }

@@ -2,18 +2,15 @@
 
 int main(int argc, char* argv[])
 {
-	
 	TestDatatypeSizes();
 
-	TestListAdd();
-
-	TestStringCompare();
-
-	TestStringSubString();
-
-	TestStringAppend();
+	TestString();
 
 	TestStack();
 
-	return 0;
+	TestQueue();
+
+	TestList();
+	
+ 	return 0;
 }
