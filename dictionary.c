@@ -85,10 +85,12 @@ void* Dictionary_Get(Dictionary* dictionary, uint32 key)
 //TODO busted - need to think about how I copy out the return data value
 void* Dictionary_Remove(Dictionary* dictionary, uint32 key)
 {
+	DictionaryItem* item;
+
 	if (!Dictionary_HasKey(dictionary, key))
 		return null;
 	
-	DictionaryItem* item = (DictionaryItem *)(dictionary->items + key);
+	item = (DictionaryItem *)(dictionary->items + key);
 
 	void* dataRt = item->data;
 	item->data = null;
