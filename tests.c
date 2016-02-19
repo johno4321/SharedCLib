@@ -193,3 +193,41 @@ void TestList()
 		printf("List is not NULL\n");
 	}
 }
+
+void TestDictionary()
+{
+	Dictionary* dictionary = Dictionary_Init();
+
+	Dictionary_Add(dictionary, 1, "this is the first object");
+	Dictionary_Add(dictionary, 2, "this is the second object");
+	Dictionary_Add(dictionary, 3, "this is the third object");
+	Dictionary_Add(dictionary, 5, "this is a not bust");
+	Dictionary_Add(dictionary, 4, "this is a budfd st");
+	Dictionary_Add(dictionary, 0, "this is blah de blah");
+
+	String* actualValue;
+	String* expectedValue;
+
+	actualValue = String_Init((char *)Dictionary_Get(dictionary, 2));
+	expectedValue = String_Init("this is the second object");
+	
+	if (String_Compare(actualValue, expectedValue) == 0)
+	{
+		printf("same string\n");
+	}
+
+	String_Delete(actualValue);
+	String_Delete(expectedValue);
+
+	actualValue = String_Init((char*)Dictionary_Remove(dictionary, 4));
+	expectedValue = String_Init("this is a budfd st");
+	
+	if (String_Compare(actualValue, expectedValue) == 0)
+	{
+		printf("same string\n");
+	}
+
+	String_Delete(actualValue);
+	String_Delete(expectedValue);
+	Dictionary_Delete(dictionary);
+}

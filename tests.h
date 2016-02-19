@@ -7,6 +7,7 @@
 #include "string.h"
 #include "stack.h"
 #include "queue.h"
+#include "dictionary.h"
 
 extern void TestDatatypeSizes();
 
@@ -21,3 +22,5 @@ extern void TestStack();
 extern void TestQueue();
 
 extern void TestList();
+
+extern void TestDictionary();

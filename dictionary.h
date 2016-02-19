@@ -11,7 +11,7 @@ typedef struct DictionaryItem
 
 typedef struct Dictionary
 {
-	char* items;
+	DictionaryItem* items;
 	uint32 count;
 	uint32 maxKey;
 

@@ -2,29 +2,33 @@
 
 Dictionary* Dictionary_Init()
 {
-	Dictionary* dict = malloc(sizeof(Dictionary));
-	dict->items = null;
+	Dictionary* dict = (Dictionary *)malloc(sizeof(Dictionary));
+	dict->items = (DictionaryItem *)malloc(sizeof(DictionaryItem) * 1);
+	
+	((DictionaryItem *)dict->items)->key = 0;
+	((DictionaryItem *)dict->items)->data = null;
+
 	dict->count = 0;
 	dict->maxKey = 0;
 	return dict;
 }
 
-//TODO this is busted - fix it
 void Dictionary_Delete(Dictionary* dictionary)
 {
+	free(dictionary->items);
 	free(dictionary);
 	dictionary = null;
 }
 
 bool Dictionary_HasKey(Dictionary* dictionary, uint32 key)
 {
-	for (uint32 memoryWalker = 0; memoryWalker < dictionary->maxKey; memoryWalker++)
-	{
-		if ((DictionaryItem *)(dictionary->items[memoryWalker]) != null)
-			return true;
-	}
+	if (dictionary->maxKey < key)
+		return false;
 
-	return false;
+	if ((DictionaryItem *)(dictionary->items + key)->data == null)
+		return false;
+
+	return true;
 }
 
 bool Dictionary_Add(Dictionary* dictionary, uint32 key, void* data)
@@ -32,11 +36,25 @@ bool Dictionary_Add(Dictionary* dictionary, uint32 key, void* data)
 	//do we need to realloc?
 	if (key > dictionary->maxKey)
 	{
-		dictionary->items = realloc(dictionary->items, sizeof(DictionaryItem) * key);
-		DictionaryItem* item = (DictionaryItem *)(dictionary->items[key]);
+		DictionaryItem* newItems = (DictionaryItem *)malloc(sizeof(DictionaryItem) * (key + 1));
 
-		item->key = key;
-		item->data = data;
+		for (uint32 memoryWalker = 0; memoryWalker <= dictionary->maxKey; memoryWalker++)
+		{
+			((DictionaryItem *)(newItems + memoryWalker))->key = memoryWalker;
+			((DictionaryItem *)(newItems + memoryWalker))->data = ((DictionaryItem *)(dictionary->items + memoryWalker))->data;
+		}
+
+		for (uint32 memoryWalker = dictionary->maxKey + 1; memoryWalker < key; memoryWalker++)
+		{
+			((DictionaryItem *)(newItems + memoryWalker))->key = memoryWalker;
+			((DictionaryItem *)(newItems + memoryWalker))->data = null;
+		}
+
+		((DictionaryItem *)(newItems + key))->key = key;
+		((DictionaryItem *)(newItems + key))->data = data;
+
+		free(dictionary->items);
+		dictionary->items = newItems;
 
 		dictionary->maxKey = key;
 		dictionary->count++;
@@ -44,9 +62,10 @@ bool Dictionary_Add(Dictionary* dictionary, uint32 key, void* data)
 	}
 	else if (!Dictionary_HasKey(dictionary, key))
 	{
-		DictionaryItem* item = (DictionaryItem *)(dictionary->items[key]);
+		DictionaryItem* item = (DictionaryItem *)(dictionary->items + key);
 		item->key = key;
 		item->data = data;
+		dictionary->count++;
 		return true;
 	}
 
@@ -56,26 +75,22 @@ bool Dictionary_Add(Dictionary* dictionary, uint32 key, void* data)
 void* Dictionary_Get(Dictionary* dictionary, uint32 key)
 {
 	if (key > dictionary->maxKey)
-	{
 		return null;
-	}
-
-	return (DictionaryItem *)(dictionary->items[key]);
+	else if (Dictionary_HasKey(dictionary, key))
+		return (DictionaryItem *)(dictionary->items + key)->data;
+	else
+		return null;
 }
 
 //TODO busted - need to think about how I copy out the return data value
 void* Dictionary_Remove(Dictionary* dictionary, uint32 key)
 {
 	if (!Dictionary_HasKey(dictionary, key))
-	{
 		return null;
-	}
-
-	DictionaryItem* item = (DictionaryItem*)dictionary->items[key];
-
-	item = null;
+	
+	DictionaryItem* item = (DictionaryItem *)(dictionary->items + key);
 
 	void* dataRt = item->data;
-
+	item->data = null;
 	return dataRt;
 }

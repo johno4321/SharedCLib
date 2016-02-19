@@ -29,3 +29,14 @@ typedef unsigned long uint64;
 #define null NULL
 
 #define printLine(msg) printf("%s\n", msg)
+
+//masks from 1 to 8
+uint8 mask0 = 0x00;
+uint8 mask1 = 0x01;
+uint8 mask2 = 0x02;
+uint8 mask3 = 0x04;
+uint8 mask4 = 0x08;
+uint8 mask5 = 0x10;
+uint8 mask6 = 0x20;
+uint8 mask7 = 0x40;
+uint8 mask8 = 0x80;
