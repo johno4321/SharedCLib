@@ -16,6 +16,32 @@ void TestDatatypeSizes()
 	printf("%d\n", sizeof(void *));
 }
 
+void TestMasks()
+{
+	bitmask val = 0xFF;
+
+	for (int i = 0; i <= 8; i++)
+	{
+		printf("%d %#04x\n\n", val << i, val << i);
+	}
+
+	for (int i = 0; i <= 8; i++)
+	{
+		printf("%d %#04x\n\n", val >> i, val >> i);
+	}
+
+	bitmask mask = 0x00;
+
+	val = mask | BITMASK_6;
+
+	printf("%d %#08x\n\n", val, val);
+
+	if (val & BITMASK_6)
+	{
+		printf("mask 6");
+	}
+}
+
 void TestString()
 {
 	TestStringCompare();

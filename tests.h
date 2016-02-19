@@ -11,6 +11,8 @@
 
 extern void TestDatatypeSizes();
 
+extern void TestMasks();
+
 void TestStringCompare();
 void TestStringSubString();
 void TestStringAppend();
