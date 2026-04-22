@@ -14,22 +14,28 @@ uint32 String_CalculateLength(char* value)
 
 String* String_Init(char* value)
 {
-	uint32 stringLength;
-	String* string;
+	if (value == NULL)
+		return NULL;
 
-	stringLength = String_CalculateLength(value);
-	string = malloc(sizeof(String));
+	uint32 stringLength = String_CalculateLength(value);
+	String* string = malloc(sizeof(String));
+
+	if (string == NULL)
+		return NULL;
 
 	size_t stringMemoryLength = sizeof(char) * (stringLength + 1);
 	string->buffer = malloc(stringMemoryLength);
 
-	for (uint32 i = 0; i < stringLength; i++)
+	if (string->buffer == NULL)
 	{
-		*(string->buffer + i) = *(value + i);
+		free(string);
+		return NULL;
 	}
 
-	*(string->buffer + stringLength) = STRING_END;
+	for (uint32 i = 0; i < stringLength; i++)
+		*(string->buffer + i) = *(value + i);
 
+	*(string->buffer + stringLength) = STRING_END;
 	string->length = stringLength;
 
 	return string;
@@ -46,24 +52,40 @@ void String_Delete(String* string)
 
 String* String_Append(String* string1, char* string2)
 {
+	if (string1 == NULL || string2 == NULL)
+		return NULL;
+
 	uint32 string2Length = String_CalculateLength(string2);
-	char* buffer = malloc(sizeof(char)* (string1->length + string2Length));
+	uint32 totalLength = string1->length + string2Length;
+	char* buffer = malloc(sizeof(char) * (totalLength + 1));
+
+	if (buffer == NULL)
+		return NULL;
 
 	for (uint32 i = 0; i < string1->length; i++)
 	{
 		*(buffer + i) = *(string1->buffer + i);
 	}
 
-	for (uint32 i = 0; i < string1->length; i++)
+	for (uint32 i = 0; i < string2Length; i++)
 	{
 		*(buffer + string1->length + i) = *(string2 + i);
 	}
 
-	*(buffer + string1->length + string2Length) = STRING_END;
+	*(buffer + totalLength) = STRING_END;
 	
 	String_Delete(string1);
 
-	return String_Init(buffer);
+	String* result = String_Init(buffer);
+	free(buffer);
+	return result;
+}
+
+uint32 String_Length(char* value)
+{
+	if (value == NULL)
+		return 0;
+	return String_CalculateLength(value);
 }
 
 int16 String_Compare(String* string1, String* string2)
@@ -97,6 +119,9 @@ int16 String_Compare(String* string1, String* string2)
 //TODO this needs to be more defensive
 String* String_Substring(String* string, uint32 startIndex, uint32 count)
 {
+	if (string == NULL)
+		return NULL;
+
 	char* subString = NULL;
 
 	//if startIndex exceeds the length of the input string return NULL

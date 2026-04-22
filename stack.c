@@ -3,20 +3,21 @@
 Stack* Stack_Init()
 {
 	Stack* stack = malloc(sizeof(Stack));
+	if (stack == NULL)
+		return NULL;
+
 	stack->count = 0;
-	stack->top = null;
+	stack->top = NULL;
 	
 	return stack;
 }
 
 void Stack_Delete(Stack* stack)
 {
-	StackNode* current = stack->top;
-
 	while (Stack_Pop(stack));
 	
 	free(stack);
-	stack = null;
+	stack = NULL;
 }
 
 void Stack_Push(Stack* stack, void* data)
@@ -41,7 +42,7 @@ void Stack_Push(Stack* stack, void* data)
 
 void* Stack_Pop(Stack* stack)
 {
-	if (stack->count == 0)
+	if (stack == NULL || stack->count == 0)
 		return null;
 
 	void* rt = stack->top->data;

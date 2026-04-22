@@ -48,7 +48,14 @@ Temporary Items
 
 *.suo
 *.filters
+
+# Build artifacts
+*.o
+*.a
+*.so
+*.exe
 *.sdf
 *.opensdf
 
 Debug
+.vscode

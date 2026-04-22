@@ -3,10 +3,18 @@
 Dictionary* Dictionary_Init()
 {
 	Dictionary* dict = (Dictionary *)malloc(sizeof(Dictionary));
+	if (dict == NULL)
+		return NULL;
+
 	dict->items = (DictionaryItem *)malloc(sizeof(DictionaryItem) * 1);
+	if (dict->items == NULL)
+	{
+		free(dict);
+		return NULL;
+	}
 	
 	((DictionaryItem *)dict->items)->key = 0;
-	((DictionaryItem *)dict->items)->data = null;
+	((DictionaryItem *)dict->items)->data = NULL;
 
 	dict->count = 0;
 	dict->maxKey = 0;
@@ -22,10 +30,13 @@ void Dictionary_Delete(Dictionary* dictionary)
 
 bool Dictionary_HasKey(Dictionary* dictionary, uint32 key)
 {
+	if (dictionary == NULL)
+		return false;
+
 	if (dictionary->maxKey < key)
 		return false;
 
-	if ((DictionaryItem *)(dictionary->items + key)->data == null)
+	if (((DictionaryItem *)dictionary->items + key)->data == NULL)
 		return false;
 
 	return true;

@@ -3,10 +3,12 @@
 Queue* Queue_Init()
 {
 	Queue* queue = malloc(sizeof(Queue));
+	if (queue == NULL)
+		return NULL;
+
 	queue->count = 0;
-	
-	queue->head = null;
-	queue->tail = null;
+	queue->head = NULL;
+	queue->tail = NULL;
 
 	return queue;
 }
@@ -46,15 +48,11 @@ void Queue_Enqueue(Queue* queue, void* data)
 
 void* Queue_Dequeue(Queue* queue)
 {
-	if (queue == null)
-	{
-		return null;
-	}
+	if (queue == NULL)
+		return NULL;
 
-	if (queue->head == null)
-	{
-		return null;
-	}
+	if (queue->head == NULL)
+		return NULL;
 
 	//get the node to dequeue
 	QueueNode* nodeToDequeue = queue->head;
@@ -63,13 +61,10 @@ void* Queue_Dequeue(Queue* queue)
 	//adjust the queue
 	queue->head = nodeToDequeue->next;
 
-	if (queue->head == null)
-	{
-		queue->tail = null;
-	}
+	if (queue->head == NULL)
+		queue->tail = NULL;
 
 	free(nodeToDequeue);
-	nodeToDequeue = null;
 
 	queue->count--;
 	return data;

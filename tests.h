@@ -9,6 +9,8 @@
 #include "queue.h"
 #include "dictionary.h"
 
+extern void RunTests();
+
 extern void TestDatatypeSizes();
 
 extern void TestMasks();
